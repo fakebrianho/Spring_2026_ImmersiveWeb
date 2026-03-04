@@ -16,14 +16,15 @@ export function addParticles() {
 	for (let i = 0; i < count; i++) {
 		const i3 = i * 3
 
-		baseX[i] = (Math.random() - 0.5) * 16
-		baseZ[i] = (Math.random() - 0.5) * 16
+		baseX[i] = (Math.random() - 0.5) * 10
+		baseZ[i] = (Math.random() - 0.5) * 10
 		positions[i3] = baseX[i]
 		positions[i3 + 1] = (Math.random() - 0.5) * 10
 		positions[i3 + 2] = baseZ[i]
 
-		sineAmp[i] = 0.3 + Math.random() * 0.6
-		sineFreq[i] = 0.3 + Math.random() * 0.8
+		// small per-particle wave: amplitude and frequency vary per particle
+		sineAmp[i] = 0.2 + Math.random() * 0.5
+		sineFreq[i] = 0.5 + Math.random() * 1.5
 	}
 
 	const geometry = new THREE.BufferGeometry()

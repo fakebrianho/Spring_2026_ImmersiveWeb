@@ -47,18 +47,6 @@ function init() {
 	animate()
 }
 
-function instances() {
-	const flower = new Model({
-		url: './flowers.glb',
-		scene: scene,
-		meshes: meshes,
-		scale: new THREE.Vector3(2, 2, 2),
-		position: new THREE.Vector3(0, -0.8, 3),
-		replace: true,
-	})
-	flower.init()
-}
-
 function resize() {
 	window.addEventListener('resize', () => {
 		renderer.setSize(window.innerWidth, window.innerHeight)
@@ -68,25 +56,18 @@ function resize() {
 }
 function animate() {
 	requestAnimationFrame(animate)
-	const dt = Math.min(clock.getDelta(), 0.033) // clamp for stability
-	const t = clock.elapsedTime
-
-	const p = meshes.points.userData
+	const t = clock.getElapsedTime()
 	const { count, positions, baseX, baseZ, sineAmp, sineFreq, positionAttr } =
-		p
+		meshes.points.userData
 
 	const floatDownSpeed = 0.6
 	const respawnY = 5
 
 	for (let i = 0; i < count; i++) {
 		const i3 = i * 3
-
-		// Sine wave horizontal movement
 		positions[i3] = baseX[i] + sineAmp[i] * Math.sin(t * sineFreq[i])
 		positions[i3 + 2] = baseZ[i] + sineAmp[i] * Math.cos(t * sineFreq[i])
-
-		positions[i3 + 1] -= floatDownSpeed * dt
-
+		positions[i3 + 1] -= floatDownSpeed * 0.013
 		if (positions[i3 + 1] < -5) {
 			positions[i3 + 1] = respawnY
 		}
